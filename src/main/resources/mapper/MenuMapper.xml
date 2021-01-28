@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiaoxin.notes.mapper.MenuDao">
+
+    <select id="userMenuList" resultType="com.xiaoxin.notes.entity.MenuEntity">
+        select m.* from t_menu m
+            left join t_role_menu rm on m.mid = rm.menu_id
+            left join t_role r on rm.role_id = r.roleId
+            left join t_user_role ur on r.roleId = ur.role_id
+            left join t_user u on ur.user_id = u.user_id
+        where u.username = #{username}
+    </select>
+
+</mapper>

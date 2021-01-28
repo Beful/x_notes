@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.xiaoxin.notes.mapper.AriticleSortRelationDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.xiaoxin.notes.entity.AriticleSortRelationEntity" id="ariticleSortRelationMap">
+        <result property="id" column="id"/>
+        <result property="ariticleId" column="ariticle_id"/>
+        <result property="sortId" column="sort_id"/>
+    </resultMap>
+
+    <insert id="saveSortByAri">
+        insert into t_ariticle_sort_relation(
+            ariticle_id,sort_id
+        ) values
+        <foreach collection="list" item="item" index="index" separator=",">
+           (
+           #{item.ariticleId},#{item.sortId}
+           )
+        </foreach>
+    </insert>
+
+
+
+</mapper>
