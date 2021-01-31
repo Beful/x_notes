@@ -9,6 +9,7 @@ import com.xiaoxin.notes.entity.TagEntity;
 import com.xiaoxin.notes.service.TagService;
 import com.xiaoxin.notes.utils.PageUtils;
 import com.xiaoxin.notes.utils.R;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
  * @email ${email}
  * @date 2021-01-19 10:58:34
  */
+@Api(tags = "TagController", description = "标签管理")
 @RestController
 @RequestMapping("notes/tag")
 public class TagController {

@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.xiaoxin.notes.controller.ex.RunServerException;
 import com.xiaoxin.notes.utils.R;
+import io.swagger.annotations.Api;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,12 +18,9 @@ import com.xiaoxin.notes.entity.LeaverBoardEntity;
 import com.xiaoxin.notes.service.LeaverBoardService;
 
 /**
- * 
- *
- * @author 
- * @email ${email}
  * @date 2021-01-23 16:17:52
  */
+@Api(tags = "LeaverBoardController", description = "留言板管理")
 @RestController
 @RequestMapping("notes/leaverboard")
 public class LeaverBoardController {

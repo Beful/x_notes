@@ -8,6 +8,7 @@ import com.xiaoxin.notes.service.CommentService;
 import com.xiaoxin.notes.service.RedisService;
 import com.xiaoxin.notes.utils.PageUtils;
 import com.xiaoxin.notes.utils.R;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,6 +22,7 @@ import java.util.stream.Collectors;
  *
  * @author XiaoXinZai
  */
+@Api(tags = "AriticleDetailsController", description = "文章首页管理")
 @RestController
 @RequestMapping("ariticle/details")
 public class AriticleDetailsController {

@@ -1,6 +1,7 @@
 package com.xiaoxin.notes.mapper.repository;
 
 import com.xiaoxin.notes.entity.document.ChatReadHistory;
+import org.apache.ibatis.annotations.Mapper;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.List;

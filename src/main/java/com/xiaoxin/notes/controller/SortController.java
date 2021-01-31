@@ -9,6 +9,7 @@ import com.xiaoxin.notes.entity.SortEntity;
 import com.xiaoxin.notes.service.SortService;
 import com.xiaoxin.notes.utils.PageUtils;
 import com.xiaoxin.notes.utils.R;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
  * @email ${email}
  * @date 2021-01-19 12:26:22
  */
+@Api(tags = "SortController", description = "分类管理")
 @RestController
 @RequestMapping("notes/sort")
 public class SortController {

@@ -21,7 +21,7 @@ import java.util.*;
  *
  * @date 2020-12-19 22:19:45
  */
-@Api(tags = "MenuController", description = "菜单")
+@Api(tags = "MenuController", description = "菜单管理")
 @RestController
 @RequestMapping("notes/menu")
 public class MenuController {

@@ -8,6 +8,7 @@ import com.xiaoxin.notes.entity.CommentEntity;
 import com.xiaoxin.notes.service.CommentService;
 import com.xiaoxin.notes.utils.PageUtils;
 import com.xiaoxin.notes.utils.R;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
  * @email ${email}
  * @date 2021-01-19 10:58:34
  */
+@Api(tags = "CommentController", description = "文章评论管理")
 @RestController
 @RequestMapping("notes/comment")
 public class CommentController {

@@ -10,6 +10,8 @@ import java.util.Date;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.xiaoxin.notes.entity.enums.DelStatusEnum;
+import com.xiaoxin.notes.entity.enums.PublishStatusEnum;
 import lombok.Data;
 
 /**
@@ -71,11 +73,11 @@ public class AriticleEntity implements Serializable {
 	/**
 	 * 删除状态 0->未删除 1->已删除
 	 */
-	private Integer isDel;
+	private DelStatusEnum isDel;
 	/**
 	 * 发布状态 0->未发布 1->已发布
 	 */
-	private Integer isPublish;
+	private PublishStatusEnum isPublish;
 
 	private String type;
 

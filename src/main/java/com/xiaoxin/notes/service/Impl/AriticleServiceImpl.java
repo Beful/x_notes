@@ -5,6 +5,8 @@ import com.xiaoxin.notes.controller.ex.NotFoundException;
 import com.xiaoxin.notes.controller.ex.ParamsErrorException;
 import com.xiaoxin.notes.controller.ex.RunServerException;
 import com.xiaoxin.notes.entity.*;
+import com.xiaoxin.notes.entity.enums.DelStatusEnum;
+import com.xiaoxin.notes.entity.enums.PublishStatusEnum;
 import com.xiaoxin.notes.entity.vo.AriticleVo;
 import com.xiaoxin.notes.mapper.*;
 import com.xiaoxin.notes.service.AriticleService;
@@ -12,13 +14,11 @@ import com.xiaoxin.notes.service.RedisService;
 import com.xiaoxin.notes.utils.PageUtils;
 import com.xiaoxin.notes.utils.QueryPage;
 import org.apache.commons.lang.StringUtils;
-import org.apache.ibatis.transaction.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -57,7 +57,7 @@ public class AriticleServiceImpl extends ServiceImpl<AriticleDao, AriticleEntity
                     ariticle.setSortList(sortList);
                     List<Integer> collect1 = sortList.stream().map(SortEntity::getId).collect(Collectors.toList());
                     ariticle.setSorts(collect1);
-                    return ariticle.getIsPublish() == 1 && ariticle.getIsDel() == 0;})
+                    return ariticle.getIsPublish() == PublishStatusEnum.ISPUBLISH && ariticle.getIsDel() == DelStatusEnum.NODEL;})
                 .sorted(Comparator.comparing(AriticleEntity::getPublishTime).reversed())
                 .collect(Collectors.toList());
 
@@ -100,7 +100,7 @@ public class AriticleServiceImpl extends ServiceImpl<AriticleDao, AriticleEntity
             ariticle.setSortList(sortList);
             List<Integer> collect1 = sortList.stream().map(SortEntity::getId).collect(Collectors.toList());
             ariticle.setSorts(collect1);
-            return ariticle.getIsPublish() == 1 && ariticle.getIsDel() == 0;
+            return ariticle.getIsPublish() == PublishStatusEnum.ISPUBLISH && ariticle.getIsDel() == DelStatusEnum.NODEL;
         }).sorted(
             Comparator.comparing(AriticleEntity::getPublishTime).reversed()
         ).collect(Collectors.toList());
@@ -128,7 +128,7 @@ public class AriticleServiceImpl extends ServiceImpl<AriticleDao, AriticleEntity
     public AriticleEntity getAriticleCoById(Integer id) {
         AriticleEntity ariticle = baseMapper.selectById(id);
 
-        if (ariticle.getIsDel() != 0 || ariticle.getIsPublish() != 1) {
+        if (ariticle.getIsDel().getValue() != 0 || ariticle.getIsPublish().getValue() != 1) {
             throw new ParamsErrorException("参数出现错误，400！");
         }
 
@@ -153,7 +153,7 @@ public class AriticleServiceImpl extends ServiceImpl<AriticleDao, AriticleEntity
         if(!user_id.equals(ariticle.getUserId())){
             throw new NotFoundException("url出现错误，404！");
         }
-        if (ariticle.getIsDel() != 0 || ariticle.getIsPublish() != 1) {
+        if (ariticle.getIsDel().getValue() != 0 || ariticle.getIsPublish().getValue() != 1) {
             throw new ParamsErrorException("参数出现错误，400！");
         }
 
@@ -197,9 +197,9 @@ public class AriticleServiceImpl extends ServiceImpl<AriticleDao, AriticleEntity
         ariticle.setUserId(ari.getUserId());
         if (ari.getIsPublish() == 1) {
             ariticle.setPublishTime(new Date());
-            ariticle.setIsPublish(1);
+            ariticle.setIsPublish(PublishStatusEnum.ISPUBLISH);
         } else {
-            ariticle.setIsPublish(0);
+            ariticle.setIsPublish(PublishStatusEnum.NOPUBLISH);
         }
         baseMapper.insert(ariticle);
 

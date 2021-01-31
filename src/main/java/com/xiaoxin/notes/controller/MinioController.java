@@ -91,7 +91,6 @@ public class MinioController {
     @ResponseBody
     public R delete(@PathVariable String id) {
         try {
-            System.out.println(id);
             MinioClient minioClient = new MinioClient(ENDPOINT, ACCESS_KEY, SECRET_KEY);
             minioClient.removeObject(BUCKET_NAME, id);
             return R.ok(null);

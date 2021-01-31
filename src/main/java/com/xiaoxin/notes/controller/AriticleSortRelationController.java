@@ -7,6 +7,7 @@ import com.xiaoxin.notes.entity.AriticleSortRelationEntity;
 import com.xiaoxin.notes.service.AriticleSortRelationService;
 import com.xiaoxin.notes.utils.PageUtils;
 import com.xiaoxin.notes.utils.R;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
  * @email ${email}
  * @date 2021-01-19 13:18:01
  */
+@Api(tags = "AriticleSortRelationController", description = "文章分类管理")
 @RestController
 @RequestMapping("notes/ariticlesortrelation")
 public class AriticleSortRelationController {

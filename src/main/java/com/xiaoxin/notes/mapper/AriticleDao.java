@@ -3,6 +3,9 @@ package com.xiaoxin.notes.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.xiaoxin.notes.entity.AriticleEntity;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
+
+import java.util.List;
 
 /**
  * 文章表
@@ -13,5 +16,6 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface AriticleDao extends BaseMapper<AriticleEntity> {
-	
+
+
 }

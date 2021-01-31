@@ -1,32 +1,25 @@
 package com.xiaoxin.notes.service.Impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.xiaoxin.notes.config.RedisConfig;
-import com.xiaoxin.notes.controller.ex.RunServerException;
 import com.xiaoxin.notes.dto.LikedCountDTO;
 import com.xiaoxin.notes.entity.AriticleEntity;
 import com.xiaoxin.notes.entity.ArticleLike;
 import com.xiaoxin.notes.entity.CommentEntity;
-import com.xiaoxin.notes.entity.UserEntity;
-import com.xiaoxin.notes.enums.LikedStatusEnum;
+import com.xiaoxin.notes.entity.enums.LikedStatusEnum;
 import com.xiaoxin.notes.mapper.AriticleDao;
 import com.xiaoxin.notes.mapper.ArticleLikeDao;
 import com.xiaoxin.notes.mapper.CommentDao;
 import com.xiaoxin.notes.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.Cursor;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.ScanOptions;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.awt.print.Pageable;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -169,7 +162,7 @@ public class ArticleLikeServiceImpl extends ServiceImpl<ArticleLikeDao, ArticleL
 
         List<AriticleEntity> list = ariticleDao.selectList(new QueryWrapper<AriticleEntity>().eq("is_del", 0).gt("comment_num", 0));
         list.stream().filter(ariticleEntity -> {
-           return ariticleEntity.getIsDel() == 0 && ariticleEntity.getCommentNum() > 0;
+           return ariticleEntity.getIsDel().getValue() == 0 && ariticleEntity.getCommentNum() > 0;
         }).map(ariticleEntity -> {
             List<CommentEntity> commentEntities = commentDao.selectList(new QueryWrapper<CommentEntity>().eq("article_d", ariticleEntity.getId()).eq("comment_level", 1));
             commentEntities.stream().map(com->{

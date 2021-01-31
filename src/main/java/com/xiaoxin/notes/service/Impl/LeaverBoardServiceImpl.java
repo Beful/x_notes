@@ -1,6 +1,7 @@
 package com.xiaoxin.notes.service.Impl;
 
 import com.xiaoxin.notes.entity.AriticleEntity;
+import com.xiaoxin.notes.entity.enums.DelStatusEnum;
 import com.xiaoxin.notes.mapper.LeaverBoardDao;
 import com.xiaoxin.notes.utils.PageUtils;
 import com.xiaoxin.notes.utils.QueryPage;
@@ -32,7 +33,7 @@ public class LeaverBoardServiceImpl extends ServiceImpl<LeaverBoardDao, LeaverBo
         List<LeaverBoardEntity> list = baseMapper.selectList(new QueryWrapper<LeaverBoardEntity>().eq("is_del", 0).orderByDesc("create_time"));
 
         List<LeaverBoardEntity> collect = list.stream()
-                .filter(lea-> lea.getCommentLevel() == 1 && lea.getIsDel() == 0)
+                .filter(lea-> lea.getCommentLevel() == 1 && lea.getIsDel() == DelStatusEnum.NODEL)
                 .peek(lea -> lea.setChildren(getChildren(lea,list)))
                 .sorted(Comparator.comparing(LeaverBoardEntity::getCreateTime).reversed())
                 .collect(Collectors.toList());
@@ -42,7 +43,7 @@ public class LeaverBoardServiceImpl extends ServiceImpl<LeaverBoardDao, LeaverBo
 
     private List<LeaverBoardEntity> getChildren(LeaverBoardEntity root, List<LeaverBoardEntity> all) {
         List<LeaverBoardEntity> collect = all.stream()
-                .filter(lea-> lea.getCommentLevel().equals(root.getId()) && lea.getIsDel() == 0)
+                .filter(lea-> lea.getCommentLevel().equals(root.getId()) && lea.getIsDel() == DelStatusEnum.NODEL)
                 .peek(lea -> lea.setChildren(getChildren(lea, all)))
                 .sorted(Comparator.comparing(LeaverBoardEntity::getCreateTime).reversed())
                 .collect(Collectors.toList());

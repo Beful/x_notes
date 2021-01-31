@@ -7,13 +7,22 @@ import java.util.Map;
 
 import com.xiaoxin.notes.common.Constant;
 import com.xiaoxin.notes.entity.AriticleEntity;
+import com.xiaoxin.notes.entity.LogEntity;
 import com.xiaoxin.notes.entity.vo.AriticleVo;
 import com.xiaoxin.notes.service.AriticleService;
+import com.xiaoxin.notes.service.LogService;
 import com.xiaoxin.notes.service.RedisService;
+import com.xiaoxin.notes.utils.IPUtils;
+import com.xiaoxin.notes.utils.IdUtils;
 import com.xiaoxin.notes.utils.PageUtils;
 import com.xiaoxin.notes.utils.R;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 
 
 /**
@@ -23,11 +32,14 @@ import org.springframework.web.bind.annotation.*;
  * @email ${email}
  * @date 2021-01-19 13:18:01
  */
+@Api(tags = "AriticleController", description = "文章管理")
 @RestController
 @RequestMapping("notes/ariticle")
 public class AriticleController {
     @Autowired
     private AriticleService ariticleService;
+    @Autowired
+    private LogService logService;
 
     /**
      * 列表
@@ -53,8 +65,9 @@ public class AriticleController {
      * 保存
      */
     @PostMapping("/save")
-    public R save(@RequestBody AriticleVo ari){
+    public R save(@RequestBody AriticleVo ari, HttpServletRequest request){
         ariticleService.saveAriticle(ari);
+        logService.save(new LogEntity(ari.getAuthor(),"发表文章", "发表文章："+ari.getTitle(), IPUtils.getIpAddr(request)));
         return R.ok();
     }
 

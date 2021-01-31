@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.xiaoxin.notes.common.Constant;
 import com.xiaoxin.notes.entity.*;
 import com.xiaoxin.notes.controller.ex.RunServerException;
+import com.xiaoxin.notes.entity.enums.EnableStatusEnum;
 import com.xiaoxin.notes.mapper.PersonNotesDao;
 import com.xiaoxin.notes.mapper.UserDao;
 import com.xiaoxin.notes.mapper.UserRoleDao;
@@ -56,7 +57,7 @@ public class UserServiceImpl extends ServiceImpl<UserDao, UserEntity> implements
             throw new RunServerException("用户名已被注册！");
         }
         user.setCreateTime(new Date());
-        user.setStatus(1);
+        user.setStatus(EnableStatusEnum.ISENABLE);
         //将密码进行加密操作
         String encodePassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encodePassword);
@@ -85,7 +86,7 @@ public class UserServiceImpl extends ServiceImpl<UserDao, UserEntity> implements
             if (!passwordEncoder.matches(password, userDetails.getPassword())) {
                 throw new RunServerException("密码不正确");
             }
-            if (0 == user.getStatus()) {
+            if (EnableStatusEnum.NOENABLE == user.getStatus()) {
                 throw new RunServerException("用户已禁用，请联系管理员开启！！");
             }
             UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());

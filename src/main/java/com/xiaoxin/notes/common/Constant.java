@@ -1,5 +1,7 @@
 package com.xiaoxin.notes.common;
 
+import org.springframework.data.redis.core.StringRedisTemplate;
+
 /**
  * Constant
  *
@@ -18,6 +20,10 @@ public class Constant {
     public static final String ASC = "asc";
     /**注册用户默认权限id*/
     public static final Integer ROLEID = 7;
+    /**Menu菜单默认父id*/
+    public static final String MENUFATHERID = "0";
+    /** 图片对应模块名 home */
     public static final String PICTURE_HOME = "home";
+    /** 图片对应模块名 adpic */
     public static final String PICTURE_ADPIC = "adpic";
 }

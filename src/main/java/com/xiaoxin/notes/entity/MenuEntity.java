@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.xiaoxin.notes.entity.enums.EnableStatusEnum;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -39,9 +40,9 @@ public class MenuEntity implements Serializable {
 	 */
 	private String path;
 	/**
-	 * 是否显示
+	 * 是否显示 0->禁用；1->启用
 	 */
-	private Integer hidden;
+	private EnableStatusEnum hidden;
 	/**
 	 * 父节点
 	 */

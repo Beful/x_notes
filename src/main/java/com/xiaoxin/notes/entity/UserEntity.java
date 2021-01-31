@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.xiaoxin.notes.entity.enums.EnableStatusEnum;
+import com.xiaoxin.notes.entity.enums.GenderStatusEnum;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -49,7 +51,7 @@ public class UserEntity implements Serializable {
 	/**
 	 * 状态  0：禁用   1：正常
 	 */
-	private Integer status;
+	private EnableStatusEnum status;
 	/**
 	 * 创建者ID
 	 */
@@ -67,6 +69,6 @@ public class UserEntity implements Serializable {
 	/**
 	 * 性别
 	 */
-	private Integer gender;
+	private GenderStatusEnum gender;
 
 }

@@ -8,6 +8,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.xiaoxin.notes.entity.enums.EnableStatusEnum;
 import lombok.Data;
 
 /**
@@ -56,7 +57,7 @@ public class QuartzEntity implements Serializable {
 	/**
 	 * 状态 0->关闭 1->开启
 	 */
-	private Integer status;
+	private EnableStatusEnum status;
 	/**
 	 * 定时任务类
 	 */

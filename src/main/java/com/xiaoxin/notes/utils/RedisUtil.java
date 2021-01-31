@@ -25,54 +25,31 @@ public final class RedisUtil {
     // =============================common============================
 
     /**
-     * 26
      * 指定缓存失效时间
-     * 27
-     *
      * @param key  键
-     *             28
      * @param time 时间(秒)
-     *             29
      * @return 30
      */
-
     public boolean expire(String key, long time) {
-
         try {
-
             if (time > 0) {
-
                 redisTemplate.expire(key, time, TimeUnit.SECONDS);
-
             }
-
             return true;
-
         } catch (Exception e) {
-
             e.printStackTrace();
-
             return false;
-
         }
-
     }
 
     /**
-     * 44
      * 根据key 获取过期时间
-     * 45
      *
      * @param key 键 不能为null
-     *            46
      * @return 时间(秒) 返回0代表为永久有效
-     * 47
      */
-
     public long getExpire(String key) {
-
         return redisTemplate.getExpire(key, TimeUnit.SECONDS);
-
     }
 
     /**
@@ -107,92 +84,51 @@ public final class RedisUtil {
     // ============================String=============================
 
     /**
-     * 83
      * 普通缓存获取
-     * 84
      *
      * @param key 键
-     *            85
      * @return 值
-     * 86
      */
-
     public Object get(String key) {
-
         return key == null ? null : redisTemplate.opsForValue().get(key);
-
     }
 
     /**
-     * 92
      * 普通缓存放入
-     * 93
-     *
      * @param key   键
-     *              94
      * @param value 值
-     *              95
      * @return true成功 false失败
-     * 96
      */
-
     public boolean set(String key, Object value) {
-
         try {
-
             redisTemplate.opsForValue().set(key, value);
-
             return true;
-
         } catch (Exception e) {
-
             e.printStackTrace();
-
             return false;
-
         }
-
     }
 
     /**
-     * 109
      * 普通缓存放入并设置时间
-     * 110
      *
      * @param key   键
-     *              111
      * @param value 值
-     *              112
      * @param time  时间(秒) time要大于0 如果time小于等于0 将设置无限期
-     *              113
      * @return true成功 false 失败
-     * 114
      */
-
     public boolean set(String key, Object value, long time) {
-
         try {
-
             if (time > 0) {
-
                 redisTemplate.opsForValue().set(key, value, time, TimeUnit.SECONDS);
-
             } else {
-
                 set(key, value);
-
             }
-
             return true;
-
         } catch (Exception e) {
-
             e.printStackTrace();
-
             return false;
-
         }
-
     }
 
     /**
@@ -209,27 +145,17 @@ public final class RedisUtil {
     }
 
     /**
-     * 143
      * 递减
-     * 144
      *
      * @param key   键
-     *              145
      * @param delta 要减少几(小于0)
-     *              146
      * @return 147
      */
-
     public long decr(String key, long delta) {
-
         if (delta < 0) {
-
             throw new RuntimeException("递减因子必须大于0");
-
         }
-
         return redisTemplate.opsForValue().increment(key, -delta);
-
     }
 
     // ================================Map=================================
@@ -371,181 +297,103 @@ public final class RedisUtil {
     // ============================set=============================
 
     /**
-     * 292
      * 根据key获取Set中的所有值
-     * 293
      *
      * @param key 键
-     *            294
      * @return 295
      */
-
     public Set<Object> sGet(String key) {
-
         try {
-
             return redisTemplate.opsForSet().members(key);
-
         } catch (Exception e) {
-
             e.printStackTrace();
-
             return null;
-
         }
-
     }
 
     /**
-     * 306
      * 根据value从一个set中查询,是否存在
-     * 307
      *
      * @param key   键
-     *              308
      * @param value 值
-     *              309
      * @return true 存在 false不存在
-     * 310
      */
-
     public boolean sHasKey(String key, Object value) {
-
         try {
-
             return redisTemplate.opsForSet().isMember(key, value);
-
         } catch (Exception e) {
-
             e.printStackTrace();
-
             return false;
-
         }
-
     }
 
     /**
-     * 321
      * 将数据放入set缓存
-     * 322
      *
      * @param key    键
-     *               323
      * @param values 值 可以是多个
-     *               324
      * @return 成功个数
-     * 325
      */
-
     public long sSet(String key, Object... values) {
-
         try {
-
             return redisTemplate.opsForSet().add(key, values);
-
         } catch (Exception e) {
-
             e.printStackTrace();
-
             return 0;
-
         }
-
     }
 
     /**
-     * 336
      * 将set数据放入缓存
-     * 337
      *
      * @param key    键
-     *               338
      * @param time   时间(秒)
-     *               339
      * @param values 值 可以是多个
-     *               340
      * @return 成功个数
-     * 341
      */
-
     public long sSetAndTime(String key, long time, Object... values) {
-
         try {
-
             Long count = redisTemplate.opsForSet().add(key, values);
-
             if (time > 0) {
                 expire(key, time);
             }
-
             return count;
-
         } catch (Exception e) {
-
             e.printStackTrace();
-
             return 0;
-
         }
-
     }
 
     /**
-     * 355
      * 获取set缓存的长度
-     * 356
      *
      * @param key 键
-     *            357
      * @return 358
      */
-
     public long sGetSetSize(String key) {
-
         try {
-
             return redisTemplate.opsForSet().size(key);
-
         } catch (Exception e) {
-
             e.printStackTrace();
-
             return 0;
-
         }
-
     }
 
     /**
-     * 369
      * 移除值为value的
-     * 370
      *
      * @param key    键
-     *               371
      * @param values 值 可以是多个
-     *               372
      * @return 移除的个数
-     * 373
      */
-
     public long setRemove(String key, Object... values) {
-
         try {
-
             Long count = redisTemplate.opsForSet().remove(key, values);
-
             return count;
-
         } catch (Exception e) {
-
             e.printStackTrace();
-
             return 0;
-
         }
-
     }
 
     // ===============================list=================================
@@ -558,7 +406,6 @@ public final class RedisUtil {
      * @param end   结束 0 到 -1代表所有值
      * @return 391
      */
-
     public List<Object> lGet(String key, long start, long end) {
         try {
             return redisTemplate.opsForList().range(key, start, end);
@@ -569,15 +416,11 @@ public final class RedisUtil {
     }
 
     /**
-     * 402
      * 获取list缓存的长度
-     * 403
      *
      * @param key 键
-     *            404
      * @return 405
      */
-
     public long lGetListSize(String key) {
         try {
             return redisTemplate.opsForList().size(key);
@@ -593,12 +436,10 @@ public final class RedisUtil {
      * @param index 索引 index>=0时， 0 表头，1 第二个元素，依次类推；index<0时，-1，表尾，-2倒数第二个元素，依次类推
      * @return 420
      */
-
     public Object lGetIndex(String key, long index) {
         try {
             return redisTemplate.opsForList().index(key, index);
         } catch (Exception e) {
-
             e.printStackTrace();
             return null;
         }

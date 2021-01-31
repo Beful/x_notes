@@ -7,6 +7,7 @@ import com.xiaoxin.notes.entity.AriticleEntity;
 import com.xiaoxin.notes.entity.ArticleLike;
 import com.xiaoxin.notes.entity.CommentEntity;
 import com.xiaoxin.notes.entity.MenuEntity;
+import com.xiaoxin.notes.entity.enums.DelStatusEnum;
 import com.xiaoxin.notes.mapper.AriticleDao;
 import com.xiaoxin.notes.mapper.CommentDao;
 import com.xiaoxin.notes.mapper.UserDao;
@@ -67,7 +68,7 @@ public class CommentServiceImpl extends ServiceImpl<CommentDao, CommentEntity> i
         List<CommentEntity> commentList = baseMapper.selectList(new QueryWrapper<CommentEntity>().eq("article_id", article_id).orderByDesc("create_time"));
 
         List<CommentEntity> collect = commentList.stream().filter(commentEntity -> {
-            return commentEntity.getStatus() == 1 && commentEntity.getCommentLevel() == 1;
+            return commentEntity.getStatus() == DelStatusEnum.NODEL && commentEntity.getCommentLevel() == 1;
         }).peek(com->{
             com.setTimeStamp(IdUtils.getTimeStamp(com.getCreateTime()));
             com.setPraiseNum(redisService.getCommentLikedNum(String.valueOf(com.getId())));
@@ -88,7 +89,7 @@ public class CommentServiceImpl extends ServiceImpl<CommentDao, CommentEntity> i
 
     private List<CommentEntity> getChildren(CommentEntity root, List<CommentEntity> all) {
         List<CommentEntity> childre = all.stream().filter(commentEntity -> {
-            return commentEntity.getStatus() == 1 && commentEntity.getParentCommentId().equals(String.valueOf(root.getId()));
+            return commentEntity.getStatus() == DelStatusEnum.NODEL && commentEntity.getParentCommentId().equals(String.valueOf(root.getId()));
         }).peek(commentEntity -> {
             commentEntity.setTimeStamp(IdUtils.getTimeStamp(commentEntity.getCreateTime()));
             commentEntity.setUserChild(userDao.selectById(commentEntity.getParentCommentUserId()));

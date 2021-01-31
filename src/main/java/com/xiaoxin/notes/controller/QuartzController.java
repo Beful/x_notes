@@ -8,6 +8,7 @@ import com.xiaoxin.notes.entity.QuartzEntity;
 import com.xiaoxin.notes.service.QuartzService;
 import com.xiaoxin.notes.utils.PageUtils;
 import com.xiaoxin.notes.utils.R;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
  * @email ${email}
  * @date 2021-01-18 20:58:32
  */
+@Api(tags = "QuartzController", description = "定时任务")
 @RestController
 @RequestMapping("notes/quartz")
 public class QuartzController {

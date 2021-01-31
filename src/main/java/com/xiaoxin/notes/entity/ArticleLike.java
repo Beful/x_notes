@@ -3,9 +3,8 @@ package com.xiaoxin.notes.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.xiaoxin.notes.enums.LikedStatusEnum;
+import com.xiaoxin.notes.entity.enums.LikedStatusEnum;
 import lombok.Data;
-import org.springframework.data.annotation.Id;
 
 /**
  * Created on 2021/1/21.

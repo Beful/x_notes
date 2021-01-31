@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.xiaoxin.notes.entity.enums.DelStatusEnum;
 import lombok.Data;
 
 /**
@@ -51,9 +52,9 @@ public class LeaverBoardEntity implements Serializable {
 	 */
 	private Integer commentLevel;
 	/**
-	 * 0 显示  1不显示（删除）
+	 * 删除状态 0->未删除 1->已删除
 	 */
-	private Integer isDel;
+	private DelStatusEnum isDel;
 
 	private String commentUser;
 

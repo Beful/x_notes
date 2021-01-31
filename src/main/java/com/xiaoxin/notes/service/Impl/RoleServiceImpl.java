@@ -51,7 +51,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleDao, RoleEntity> implements
     public List<Integer> selMenuByRoleId(String id) {
         List<MenuEntity> list = roleMenuDao.selMenuByRoleId(id);
         List<Integer> collect = list.stream().filter(rm -> {
-            return !"0".equals(rm.getFathernode());
+            return !Constant.MENUFATHERID.equals(rm.getFathernode());
         }).map(MenuEntity::getMid).collect(Collectors.toList());
 
         return collect;
@@ -71,7 +71,6 @@ public class RoleServiceImpl extends ServiceImpl<RoleDao, RoleEntity> implements
             }
             Integer integer = roleMenuDao.saveMenusByPerId(list);
         }catch(Exception e){
-            System.out.println(e.toString());
             e.printStackTrace();
         }
     }

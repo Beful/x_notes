@@ -1,4 +1,4 @@
-package com.xiaoxin.notes.enums;
+package com.xiaoxin.notes.entity.enums;
 
 import lombok.Getter;
 

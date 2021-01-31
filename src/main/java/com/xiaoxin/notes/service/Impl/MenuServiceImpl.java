@@ -8,6 +8,7 @@ import com.xiaoxin.notes.common.Constant;
 import com.xiaoxin.notes.config.RedisConfig;
 import com.xiaoxin.notes.entity.MenuEntity;
 import com.xiaoxin.notes.controller.ex.RunServerException;
+import com.xiaoxin.notes.entity.enums.EnableStatusEnum;
 import com.xiaoxin.notes.mapper.MenuDao;
 import com.xiaoxin.notes.service.MenuService;
 import com.xiaoxin.notes.utils.PageUtils;
@@ -17,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -47,13 +49,11 @@ public class MenuServiceImpl extends ServiceImpl<MenuDao, MenuEntity> implements
 
         // 找出所有一级分类
         List<MenuEntity> level1Menus  = entities.stream().filter(menu -> {
-            return "0".equals(menu.getFathernode()) && 1 == menu.getHidden();
+            return Constant.MENUFATHERID.equals(menu.getFathernode()) && EnableStatusEnum.ISENABLE == menu.getHidden();
         }).map(menu -> {
             menu.setChildren(getChildren(menu, entities));
             return menu;
-        }).sorted((menu1,menu2) -> {
-            return (menu1.getOrders() == null ? 0 : Integer.valueOf(menu1.getOrders())) - (menu2.getOrders() == null ? 0 : Integer.valueOf(menu2.getOrders()));
-        }).collect(Collectors.toList());
+        }).sorted(Comparator.comparingInt(menu -> (menu.getOrders() == null ? 0 : Integer.valueOf(menu.getOrders())))).collect(Collectors.toList());
 
         return level1Menus;
     }
@@ -91,7 +91,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuDao, MenuEntity> implements
 
         // 找出所有一级分类
         List<MenuEntity> level1Menus  = entities.stream().filter(menu -> {
-            return "0".equals(menu.getFathernode()) && 1 == menu.getHidden();
+            return Constant.MENUFATHERID.equals(menu.getFathernode()) && EnableStatusEnum.ISENABLE == menu.getHidden();
         }).map(menu -> {
             menu.setChildren(getChildren(menu, entities));
             return menu;
@@ -105,7 +105,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuDao, MenuEntity> implements
     //递归查找所有菜单的子菜单
     private List<MenuEntity> getChildren(MenuEntity root,List<MenuEntity> all) {
         List<MenuEntity> childre = all.stream().filter(menu -> {
-            return menu.getFathernode().equals(root.getMcode()) && 1 == menu.getHidden();
+            return menu.getFathernode().equals(root.getMcode()) && EnableStatusEnum.ISENABLE == menu.getHidden();
         }).map(menu -> {
             menu.setChildren(getChildren(menu, all));
             return menu;

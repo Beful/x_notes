@@ -5,7 +5,6 @@ import com.xiaoxin.notes.entity.AriticleEntity;
 import com.xiaoxin.notes.entity.vo.AriticleVo;
 import com.xiaoxin.notes.utils.PageUtils;
 
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -32,5 +31,7 @@ public interface AriticleService extends IService<AriticleEntity> {
     AriticleEntity ArticleInfo(String user_id, String ariticle_id);
 
     void updateLikeNumById(String id, Integer likeNum);
+
+
 }
 

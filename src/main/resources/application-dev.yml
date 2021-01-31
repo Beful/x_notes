@@ -11,7 +11,7 @@ spring:
         elasticsearch:
             repositories:
                 enabled: true
-            cluster-nodes: 127.0.0.1:9300
+            cluster-nodes: 127.0.0.1:9200
             cluster-name: elasticsearch
 
 

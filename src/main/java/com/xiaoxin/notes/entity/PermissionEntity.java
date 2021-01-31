@@ -3,6 +3,7 @@ package com.xiaoxin.notes.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.xiaoxin.notes.entity.enums.EnableStatusEnum;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -28,7 +29,7 @@ public class PermissionEntity implements Serializable {
 	//权限类型：0->目录；1->菜单；2->按钮（接口绑定权限）
 	private int type;
 	//启用状态；0->禁用；1->启用
-	private int status;
+	private EnableStatusEnum status;
 	private String pname;
 	private String url;
 	private String sort;

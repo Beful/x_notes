@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.xiaoxin.notes.entity.enums.DelStatusEnum;
 import lombok.Data;
 
 /**
@@ -70,9 +71,9 @@ public class CommentEntity implements Serializable {
 	 */
 	private String content;
 	/**
-	 * 状态 (1 有效，0 逻辑删除)
+	 * 删除状态 0->未删除 1->已删除
 	 */
-	private Integer status;
+	private DelStatusEnum status;
 	/**
 	 * 点赞数
 	 */
